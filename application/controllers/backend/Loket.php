@@ -182,4 +182,26 @@ class Loket extends SIAP_Backend {
 			$this->load_view();
 		}
 	}
+
+	public function status()
+	{
+		$status 	= 0;
+		$counter_id = $this->input->post('counter_id', TRUE);
+		$status 	= $this->input->post('status', TRUE);
+
+		$this->form_validation->set_rules('counter_id', 'ID Loket', 'required|alpha_numeric|exact_length[13]');
+		$this->form_validation->set_rules('status', 'Status', 'required|in_list[open,close]');
+		if ($this->form_validation->run() == TRUE) 
+		{
+			$status = $this->loket_m->status($counter_id, $status);
+			$msg = ($status === 1) ? '' : 'Gagal membuka loket.';
+		} 
+		else 
+		{
+			$msg = validation_errors();
+		}
+
+		$result = array('result' => $status, 'msg' => $msg, 'token' => $this->security->get_csrf_hash());
+		$this->output->set_content_type('application/json')->set_output(json_encode($result));		
+	}
 }

@@ -87,6 +87,7 @@ $route['admin/loket']								= 'backend/loket/index';
 $route['admin/tambah-loket']						= 'backend/loket/tambah';
 $route['admin/ubah-loket']							= 'backend/loket/ubah';
 $route['admin/hapus-loket']							= 'backend/loket/hapus';
+$route['admin/loket/status']						= 'backend/loket/status';
 $route['admin/masuk-loket/([a-zA-Z0-9]+)']			= 'backend/loket/masuk/$1';
 
 $route['admin/pengaturan-seo']						= 'backend/pengaturan_seo/index';

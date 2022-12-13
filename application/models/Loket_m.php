@@ -50,6 +50,14 @@ class Loket_m extends CI_Model {
 
 		return ($this->db->affected_rows() > 0) ? 1 : 0;
 	}
+
+	public function status($id, $status)
+	{
+		$this->db->where('counter_id', $id);
+		$this->db->update('tb_counter', ['status' => $status]);
+
+		return ($this->db->affected_rows() > 0) ? 1 : 0;
+	}
 }
 
 /* End of file loket_m.php */

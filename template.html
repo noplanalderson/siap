@@ -342,6 +342,10 @@ function speak(text) {
 	msg.volume = parseFloat(volumeInput.value);
 	msg.rate = parseFloat(rateInput.value);
 	msg.pitch = parseFloat(pitchInput.value);
+
+	console.log(volumeInput.value)
+	console.log(rateInput.value)
+	console.log(pitchInput.value)
   
   // If a voice has been selected, find the voice and set the
   // utterance instance's voice attribute.
@@ -349,6 +353,8 @@ function speak(text) {
 		msg.voice = speechSynthesis.getVoices().filter(function(voice) { return voice.name == voiceSelect.value; })[0];
 	}
   
+	console.log(msg.voice)
+	console.log(voiceSelect.value)
   // Queue this utterance.
 	window.speechSynthesis.speak(msg);
 }

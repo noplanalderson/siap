@@ -9,7 +9,10 @@ defined('BASEPATH') OR exit('No direct script access allowed'); ?>
                     <h4 class="card-title float-left"><?= $loket['counter_name'] ?></h4>
                   </div>
                   <div class="card-body">
+                    <input type="hidden" id="counter_id" value="<?= $loket['counter_id'] ?>">
+                    <div id="msg"></div>
                     <audio id="audiobell" src="<?= site_url('_/audio/Airport_Bell.mp3') ?>" class="d-none"></audio>
+                    <input type="hidden" id="counter_seq" value="<?= $loket['counter_sequence'] ?>">
                     <div class="row mb-4  text-center">
                       <div class="col-12">
                         
@@ -19,6 +22,14 @@ defined('BASEPATH') OR exit('No direct script access allowed'); ?>
                             <h1 style="font-size: 50pt;" id="queue"><?= $next_queue ?></h1>
                           </div>
                         </div>
+                      </div>
+                    </div>
+                    <div class="row d-none">
+                      <div class="col-12">
+                          <div class="option">
+                            <label for="voice">Voice</label>
+                            <select name="voice" id="voice"></select>
+                          </div>
                       </div>
                     </div>
                     <div class="row">

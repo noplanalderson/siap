@@ -202,7 +202,7 @@ class SIAP_Backend extends CI_Controller
 			'uid' => $this->session->userdata('uid'),
 			'gid' => $this->session->userdata('gid'),
 			'active_page' => $this->uri->segment(2),
-			'index_page' => $this->index_menu,
+			'index_page' => 'admin/'.$this->index_menu,
 			'user_hash' => $this->user_hash
 		);
 		
