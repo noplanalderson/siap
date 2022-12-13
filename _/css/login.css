@@ -1,0 +1,26 @@
+
+/*-- slide --*/
+
+@keyframes slideleft {
+    from {
+        background-position: 0%;
+    }
+    to {
+        background-position: 90000%;
+    }
+}
+
+@-webkit-keyframes slideleft {
+    from {
+        background-position: 0%;
+    }
+    to {
+        background-position: 90000%;
+    }
+}
+
+.bg-layer {
+    background: rgba(0, 0, 0, 0.7);
+	min-height: 100vh;
+}
+/*-- //slide --*/
