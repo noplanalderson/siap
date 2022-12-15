@@ -142,13 +142,14 @@ class Loket extends SIAP_Backend {
 	{
 		if($this->input->is_ajax_request() == true)
 		{
-			if(!empty($this->input->post('counter_id', TRUE)))
+			if(!empty($this->input->post('transaction_id', TRUE)))
 			{
 				$this->form_validation->set_rules('counter_id', 'ID Loket', 'required|exact_length[13]|alpha_numeric');
+				$this->form_validation->set_rules('transaction_id', 'ID Transaksi', 'required|exact_length[13]|alpha_numeric');
 				if ($this->form_validation->run() == TRUE) 
 				{
 					$status = 1;
-					$data 	= $this->transaksi_m->updateTransaksi($this->input->post('counter_id', TRUE));
+					$data 	= $this->transaksi_m->updateTransaksi($this->input->post('counter_id', TRUE), $this->input->post('transaction_id', TRUE));
 					$msg  	= ($data === 0) ? 'Gagal melakukan transaksi.' : '';
 				} 
 				else 
@@ -176,7 +177,7 @@ class Loket extends SIAP_Backend {
 			$this->_data 	= array(
 				'title' 	=> $this->app->site_name . ' - ' . $loket['counter_name'],
 				'loket'		=> $loket,
-				'next_queue'=> $this->transaksi_m->nextQueue($loket['counter_id'])	
+				'last_queue'=> $this->transaksi_m->lastQueue($loket['counter_id'])	
 			);
 
 			$this->load_view();

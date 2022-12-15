@@ -40,7 +40,7 @@ let tableCfg = {
     "columns":[
         { 
             "data": function (row, type, val, meta) {
-                return '<img class="img-fluid w-75 h-75" src="'+baseURI + '_/uploads/sites/'+row.image+'">';
+                return '<img class="img-fluid w-75 h-75" src="'+baseURI + '_/uploads/slides/'+row.image+'">';
             }
         },
         { "data": "slide_title", "name": "slide_title", "title": "Judul" },
@@ -57,7 +57,7 @@ let tableCfg = {
         { "data": function (row, type, val, meta) {
             
             if(menu.includes('ubah-gambar')) {
-                let button = "<button href='#' data-id='"+row.slide_id+"' data-file='"+row.image+"' data-toggle='modal' data-target='#slideModal' class='btn btn-md btn-warning py-2 ubah-gambar mr-2'><i class='fas fa-edit'></i></button>";
+                var button = "<button href='#' data-id='"+row.slide_id+"' data-file='"+row.image+"' data-toggle='modal' data-target='#slideModal' class='btn btn-md btn-warning py-2 ubah-gambar mr-2'><i class='fas fa-edit'></i></button>";
             }
             if(menu.includes('hapus-gambar')) {
                 button += "<button href='#' data-id='"+row.slide_id+"' data-file='"+row.image+"' class='btn btn-md btn-danger py-2 hapus-gambar'><i class='fas fa-trash-alt'></i></button>";

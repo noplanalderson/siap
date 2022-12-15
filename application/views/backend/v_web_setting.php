@@ -42,34 +42,6 @@ defined('BASEPATH') OR exit('No direct script access allowed'); ?>
                           <div class="form-group">
                             <div class="row">
                               <div class="col-md-6 col-sm-12">
-                                <label for="site_instagram">Instagram</label>
-                                <input type="url" name="instagram" id="site_instagram" class="form-control" placeholder="Instagram URL" value="<?= $this->app->instagram ?>">
-                              </div>
-                              <div class="col-md-6 col-sm-12">
-                                <label for="site_facebook">Facebook</label>
-                                <input type="url" name="facebook" id="site_facebook" class="form-control" placeholder="Facebook URL" value="<?= $this->app->facebook ?>">
-                              </div>
-                            </div>
-                          </div>
-                          <div class="form-group">
-                            <div class="row">
-                              <div class="col-md-4 col-sm-12">
-                                <label for="site_twitter">Twitter</label>
-                                <input type="url" name="twitter" id="site_twitter" class="form-control" placeholder="Twitter URL" value="<?= $this->app->twitter ?>">
-                              </div>
-                              <div class="col-md-4 col-sm-12">
-                                <label for="site_youtube">Youtube</label>
-                                <input type="url" name="youtube" id="site_youtube" class="form-control" placeholder="Youtube URL" value="<?= $this->app->youtube ?>">
-                              </div>
-                              <div class="col-md-4 col-sm-12">
-                                <label for="site_tiktok">Tiktok</label>
-                                <input type="url" name="tiktok" id="site_tiktok" class="form-control" placeholder="Tiktok URL" value="<?= $this->app->tiktok ?>">
-                              </div>
-                            </div>
-                          </div>
-                          <div class="form-group">
-                            <div class="row">
-                              <div class="col-md-6 col-sm-12">
                                 <label>Logo Instansi</label>
                                 <input type="file" name="site_logo" class="file-upload-default">
                                 <div class="input-group col-xs-12">

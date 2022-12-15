@@ -48,7 +48,7 @@ let tableCfg = {
                 button += "<button href='#' data-id='"+row.counter_id+"' class='btn btn-sm btn-danger py-1 hapus-loket mr-2'><i class='fas fa-trash-alt'></i></button>";
             }
             if(menu.includes('masuk-loket')) {
-                button += "<a href='"+baseURI + 'admin/masuk-loket/' + row.counter_id+"' class='btn btn-sm btn-info py-1' target='_blank' rel='noopener noreferrer nofollow'><i class='fas fa-sign-in-alt'></i></a>";
+                button += "<a data-id='"+row.counter_id+"' class='btn btn-sm btn-info py-1 buka-loket'><i class='fas fa-sign-in-alt'></i></a>";
             }
             return button;
         }}
@@ -206,6 +206,48 @@ $('#loketForm').on('submit', function(e) {
             } else {
                 Swal.fire('Gagal!', data.msg, 'error'); 
             }   
+        }
+    });
+})
+
+$('#tbl_loket').on('click', '.buka-loket', function(e) {
+    let counter_id = $(this).data('id');
+    $.ajax({
+        url: baseURI + 'admin/loket/status',
+        type: 'post',
+        data: {
+            counter_id: counter_id,
+            status: 'open',
+            siap_token: $('meta[name="X-CSRF-TOKEN"]').attr('content')
+        },
+        dataType:'json',
+        error: function(xhr, status, error) {
+            var data = 'Mohon refresh kembali halaman ini. ' + '(status code: ' + xhr.status + ')';
+            Swal.fire({
+                title: 'Terjadi Kesalahan!',
+                operator: data,
+                showConfirmButton: false,
+                type: 'error'
+            })
+        },
+        success: function (data) {
+            
+            $('meta[name="X-CSRF-TOKEN"]').attr('content', data.token);
+            $('.csrf-token').val(data.token);
+
+            if(data.result !== 1) {
+                
+                Toast.fire({
+                   type : 'error',
+                   icon: 'error',
+                   title: 'Terjadi Kesalahan',
+                   operator: data.msg,
+                });  
+            }
+            else
+            {
+                window.open(baseURI + "admin/masuk-loket/" + counter_id, '_blank').focus();
+            }
         }
     });
 })

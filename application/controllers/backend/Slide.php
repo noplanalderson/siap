@@ -76,7 +76,7 @@ class Slide extends SIAP_Backend {
 	        $slide_id = uniqidReal();
 
 			$config = array(
-				'upload_path' => FCPATH . '_/uploads/sites/',
+				'upload_path' => FCPATH . '_/uploads/slides/',
 				'file_ext_tolower' => true,
 				'allowed_types' => 'jpeg|jpg|png',
 				'max_size' => '5200',
@@ -123,7 +123,7 @@ class Slide extends SIAP_Backend {
 		if ($this->form_validation->run() == TRUE) 
 		{
 			$config = array(
-				'upload_path' => FCPATH . '_/uploads/sites/',
+				'upload_path' => FCPATH . '_/uploads/slides/',
 				'file_ext_tolower' => true,
 				'allowed_types' => 'jpeg|jpg|png',
 				'max_size' => '5200',

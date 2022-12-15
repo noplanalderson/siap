@@ -19,7 +19,7 @@ defined('BASEPATH') OR exit('No direct script access allowed'); ?>
                         <div class="card">
                           <div class="card-body text-black-50 font-weight-bold">
                             <h4>Nomor Selanjutnya</h4>
-                            <h1 style="font-size: 50pt;" id="queue"><?= $next_queue ?></h1>
+                            <h1 style="font-size: 50pt;" id="queue"><?= ($last_queue['queue_num'] ?? 'Antrian habis') ?></h1>
                           </div>
                         </div>
                       </div>
@@ -33,13 +33,16 @@ defined('BASEPATH') OR exit('No direct script access allowed'); ?>
                       </div>
                     </div>
                     <div class="row">
-                      <div class="col-6">
+                      <div class="col-4">
                         <button type="button" class="btn btn-block btn-secondary" data-id="<?= $loket['counter_id'] ?>" id="close"><i class="fas fa-times-circle"></i> Tutup</button>
                         
                       </div>
-                      <div class="col-6">
+                      <div class="col-4">
+                        <button type="button" class="btn btn-block btn-info" id="refresh"><i class="fas fa-sync"></i> Refresh</button>
+                      </div>
+                      <div class="col-4">
                         
-                        <button type="button" class="btn btn-block btn-primary" data-id="<?= $loket['counter_id'] ?>" id="call"><i class="fas fa-volume-up"></i> Panggil</button>
+                        <button type="button" class="btn btn-block btn-primary" data-queue="<?= ($last_queue['transaction_id'] ?? '') ?>" data-id="<?= $loket['counter_id'] ?>" id="call"><i class="fas fa-volume-up"></i> Panggil</button>
                       </div>
                     </div>
                   </div>

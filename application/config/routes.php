@@ -52,6 +52,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 $route['portaladmin']								= 'backend/login/index';
 $route['portaladmin/auth']							= 'backend/login/auth';
 
+$route['admin/akun']								= 'backend/akun/index';
 $route['admin/logout']								= 'backend/logout';
 $route['admin/dashboard']							= 'backend/dashboard';
 $route['admin/dashboard/stats']						= 'backend/dashboard/stats';
@@ -90,8 +91,9 @@ $route['admin/hapus-loket']							= 'backend/loket/hapus';
 $route['admin/loket/status']						= 'backend/loket/status';
 $route['admin/masuk-loket/([a-zA-Z0-9]+)']			= 'backend/loket/masuk/$1';
 
-$route['admin/pengaturan-seo']						= 'backend/pengaturan_seo/index';
-$route['admin/pengaturan-web']						= 'backend/pengaturan_web/index';
+$route['admin/transaksi']							= 'backend/transaksi/index';
+
+$route['admin/pengaturan-aplikasi']					= 'backend/pengaturan_aplikasi/index';
 
 $route['default_controller'] = 'home';
 $route['404_override'] = '';

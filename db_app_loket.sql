@@ -1,14 +1,13 @@
 -- phpMyAdmin SQL Dump
--- version 4.9.5deb2
+-- version 5.2.0
 -- https://www.phpmyadmin.net/
 --
--- Host: localhost:3306
--- Generation Time: Dec 13, 2022 at 04:17 PM
--- Server version: 10.4.27-MariaDB-1:10.4.27+maria~ubu2004
+-- Host: 127.0.0.1
+-- Generation Time: Dec 15, 2022 at 04:26 PM
+-- Server version: 10.4.27-MariaDB
 -- PHP Version: 7.4.33
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET AUTOCOMMIT = 0;
 START TRANSACTION;
 SET time_zone = "+00:00";
 
@@ -43,7 +42,7 @@ CREATE TABLE `tb_counter` (
 
 INSERT INTO `tb_counter` (`counter_id`, `counter_sequence`, `counter_name`, `date_created`, `created_by`, `status`) VALUES
 ('lkh6868AC1244', 1, 'Loket 1', '2022-12-10 23:32:42', 'Administrator', 'open'),
-('lkh6868AC1245', 2, 'Loket 2', '2022-12-10 23:32:42', 'Administrator', 'open');
+('lkh6868AC1245', 2, 'Loket 2', '2022-12-10 23:32:42', 'Administrator', 'close');
 
 -- --------------------------------------------------------
 
@@ -211,9 +210,9 @@ CREATE TABLE `tb_slide` (
 --
 
 INSERT INTO `tb_slide` (`slide_id`, `slide_title`, `slide_description`, `image`, `upload_date`, `upload_by`, `status`) VALUES
-('5bcd0d37617e9', 'Slide Percobaan Dua', 'Slide Percobaan Dua', 'slide-5bcd0d37617e91.jpg', '2022-12-10 21:59:58', 'Administrator', 'show'),
-('960771c93abce', 'Slide Percobaan Dua', 'Slide Percobaan Dua', 'slide-960771c93abce.jpg', '2022-12-10 21:59:42', 'Administrator', 'show'),
-('9a593209149ec', 'Slide Percobaan Satu', 'Slide Percobaan Satu', 'slide-9a593209149ec.jpg', '2022-12-10 22:03:59', 'Administrator', 'show');
+('5bcd0d37617e9', 'Slide Percobaan Dua', 'Slide Percobaan Dua', 'slide-5bcd0d37617e9.jpg', '2022-12-10 21:59:58', 'Administrator', 'show'),
+('960771c93abce', 'Slide Percobaan Tiga', 'Slide Percobaan Tiga', 'slide-960771c93abce.jpg', '2022-12-10 21:59:42', 'Administrator', 'show'),
+('9a593209149ec', 'Slide Percobaan 1', 'Slide Percobaan Satu', 'slide-9a593209149ec1.jpg', '2022-12-10 22:03:59', 'Administrator', 'show');
 
 -- --------------------------------------------------------
 
@@ -223,26 +222,26 @@ INSERT INTO `tb_slide` (`slide_id`, `slide_title`, `slide_description`, `image`,
 
 CREATE TABLE `tb_transaction` (
   `transaction_id` char(32) NOT NULL,
+  `queue_num` int(10) UNSIGNED NOT NULL,
   `counter_id` char(13) NOT NULL,
-  `employee_name` char(255) NOT NULL,
-  `date` date NOT NULL
+  `employee_name` char(255) DEFAULT NULL,
+  `date` datetime NOT NULL,
+  `status` enum('queue','done') NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `tb_transaction`
 --
 
-INSERT INTO `tb_transaction` (`transaction_id`, `counter_id`, `employee_name`, `date`) VALUES
-('1614a4e2eacb5', 'lkh6868AC1245', 'Administrator', '2022-12-13'),
-('18d33bca0edd0', 'lkh6868AC1245', 'Administrator', '2022-12-13'),
-('35dd4b17a7c71', 'lkh6868AC1245', 'Administrator', '2022-12-13'),
-('43738d1ce610d', 'lkh6868AC1245', 'Administrator', '2022-12-13'),
-('5716b8ccc3c5a', 'lkh6868AC1245', 'Administrator', '2022-12-13'),
-('bf5dae859dc63', 'lkh6868AC1245', 'Administrator', '2022-12-13'),
-('cb6c7384019cd', 'lkh6868AC1245', 'Administrator', '2022-12-13'),
-('d1e1c8a1dff4f', 'lkh6868AC1245', 'Administrator', '2022-12-13'),
-('e2af43ead7151', 'lkh6868AC1245', 'Administrator', '2022-12-13'),
-('f2b0d4b45ee40', 'lkh6868AC1245', 'Administrator', '2022-12-13');
+INSERT INTO `tb_transaction` (`transaction_id`, `queue_num`, `counter_id`, `employee_name`, `date`, `status`) VALUES
+('6b0ecb03eabb3', 3, 'lkh6868AC1244', 'Administrator', '2022-12-15 04:06:35', 'done'),
+('6dbd74fa028a5', 6, 'lkh6868AC1244', NULL, '2022-12-15 04:26:14', 'queue'),
+('84b7dc791335c', 5, 'lkh6868AC1244', 'Administrator', '2022-12-15 04:25:37', 'done'),
+('a79ef926f976d', 2, 'lkh6868AC1244', 'Administrator', '2022-12-15 03:51:17', 'done'),
+('df5aeb5797078', 1, 'lkh6868AC1245', 'Administrator', '2022-12-15 03:51:33', 'done'),
+('e740c50fceda5', 4, 'lkh6868AC1244', 'Administrator', '2022-12-15 04:09:45', 'done'),
+('f7aa8aa6f0c77', 2, 'lkh6868AC1245', 'Administrator', '2022-12-15 04:11:48', 'done'),
+('fb41c0581a682', 1, 'lkh6868AC1244', 'Administrator', '2022-12-15 00:00:00', 'done');
 
 -- --------------------------------------------------------
 
@@ -268,7 +267,7 @@ CREATE TABLE `tb_user` (
 --
 
 INSERT INTO `tb_user` (`user_id`, `group_id`, `employee_name`, `username`, `password`, `date_created`, `last_login`, `last_ip`, `user_picture`, `status`) VALUES
-('1aD98123944Ac', 1, 'Administrator', 'admin', '$argon2id$v=19$m=2048,t=8,p=4$U3JKMjh1cnAxV1duQ2hBcg$HEEGMWDjyBljw+GwENLHUBjazwH+MDVVqNrRnKdp7W0', '2022-12-05 16:17:14', '2022-12-12 19:54:48', '127.0.0.1', 'shrodinger-schrodinger-s-cat-140235.jpg', 'active');
+('1aD98123944Ac', 1, 'Administrator', 'admin', '$argon2id$v=19$m=2048,t=8,p=4$eEw5b2ZST1FwNUkxZERjbw$/AjMoKqTkACT9cLjwPhkIo5rSHnYr6REjDaJ68DgQkc', '2022-12-05 16:17:14', '2022-12-13 16:48:56', '::1', 'Administrator-1aD98123944Ac-20221215121514.jpg', 'active');
 
 -- --------------------------------------------------------
 
@@ -312,7 +311,7 @@ CREATE TABLE `tb_web_setting` (
 --
 
 INSERT INTO `tb_web_setting` (`site_id`, `site_name`, `site_logo`, `site_logo_alt`, `site_tagline`, `site_address`, `site_phone`, `site_email`) VALUES
-(1, 'Loket loketan', 'icon.png', 'icon.png', NULL, 'Someplace in the  Cruel World', '72777777', 'mrnaeem@tutanota.com');
+(1, 'Kecamatan Karawaci', 'icon.png', 'icon.png', '', 'JL. PROKLAMASI NO. 09 RT.01/03 CIMONE JAYA, KARAWACI, KOTA TANGERANG', '0215585268', 'kec.karawaci@tangerangkota.go.id');
 
 --
 -- Indexes for dumped tables

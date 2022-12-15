@@ -39,16 +39,6 @@ defined('BASEPATH') OR exit('No direct script access allowed'); ?>
                       <p class="preview-subject mb-1">Akun</p>
                     </div>
                   </a>
-                  <a class="dropdown-item preview-item" id="password" href="#" data-toggle="modal" data-target="#passwordModal">
-                    <div class="preview-thumbnail">
-                      <div class="preview-icon bg-dark rounded-circle">
-                        <i class="fas fa-key text-warning"></i>
-                      </div>
-                    </div>
-                    <div class="preview-item-content">
-                      <p class="preview-subject mb-1">Ganti Kata Sandi</p>
-                    </div>
-                  </a>
                   <div class="dropdown-divider"></div>
                   <a id="logout" class="dropdown-item preview-item">
                     <div class="preview-thumbnail">

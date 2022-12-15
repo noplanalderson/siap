@@ -5,7 +5,7 @@ class Home_m extends CI_Model {
 
 	public function getSlides()
 	{
-		$this->db->select('slide_id, slide_description, image');
+		$this->db->select('slide_id, slide_title, slide_description, image');
 		$this->db->where('status', 'show');
 		$this->db->order_by('upload_date', 'desc');
 		return $this->db->get('tb_slide')->result();
@@ -24,11 +24,18 @@ class Home_m extends CI_Model {
 		return $this->db->get('tb_counter')->result();
 	}
 
-	// public function nomorAntrian($counter_id)
-	// {
-	// 	$this->db->select('COUNT(transaction_id) AS hitung');
-		
-	// }
+	public function nomorAntrian($counter_id)
+	{
+		$this->db->where('counter_id', $counter_id);
+		$this->db->where("date_format(date, '%Y%m%d') =", date('Ymd'));
+		return $this->db->get('tb_transaction')->num_rows();
+	}
+
+	public function getLoketByID($counter_id)
+	{
+		$this->db->where('counter_id', $counter_id);
+		return $this->db->get('tb_counter')->row();
+	}
 }
 
 /* End of file home_m.php */

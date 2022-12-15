@@ -1,40 +1,3 @@
-$(function(){
-
-    $.ajax({
-        url: baseURI + 'admin/loket/status',
-        type: 'post',
-        data: {
-            counter_id: $('#counter_id').val(),
-            status: 'open',
-            siap_token: $('meta[name="X-CSRF-TOKEN"]').attr('content')
-        },
-        dataType:'json',
-        error: function(xhr, status, error) {
-            var data = 'Mohon refresh kembali halaman ini. ' + '(status code: ' + xhr.status + ')';
-            Swal.fire({
-                title: 'Terjadi Kesalahan!',
-                operator: data,
-                showConfirmButton: false,
-                type: 'error'
-            })
-        },
-        success: function (data) {
-            
-            $('meta[name="X-CSRF-TOKEN"]').attr('content', data.token);
-            $('.csrf-token').val(data.token);
-
-            if(data.result !== 1) {
-                
-                Toast.fire({
-                   type : 'error',
-                   icon: 'error',
-                   title: 'Terjadi Kesalahan',
-                   operator: data.msg,
-                });  
-            }
-        }
-    });
-})
 /*
  * Check for browser support
  */
@@ -158,6 +121,7 @@ $('#call').on('click', function(e) {
     $(this).html('<i class="fas fa-spinner fa-spin"></i> Memanggil...');
 
 	let counter_id = $(this).data('id');
+    let transaction_id = $(this).data('queue');
 
 	document.getElementById('audiobell').pause();
     document.getElementById('audiobell').currentTime = 0;
@@ -178,6 +142,7 @@ $('#call').on('click', function(e) {
             type: 'post',
             data: {
                 counter_id: counter_id,
+                transaction_id: transaction_id,
                 siap_token: $('meta[name="X-CSRF-TOKEN"]').attr('content')
             },
             dataType:'json',
@@ -197,9 +162,21 @@ $('#call').on('click', function(e) {
 
                 if(data.result == 1) {
                     var data = data.transaksi;
-                    $('#queue').text(data);
+                    if(data == null)
+                    {
+                        $('#queue').text('Antrian Habis');
+                        $('#call').html('<i class="fas fa-volume-up"></i> Panggil');
+                    }
+                    else
+                    {
+                        $('#queue').text(data.queue_num);
+                        $('#call').data('queue', data.transaction_id);
 
-                    } else {
+                        $('#call').prop('disabled', false);
+                        $('#call').html('<i class="fas fa-volume-up"></i> Panggil');
+                    }
+
+                } else {
                     
                     Toast.fire({
                        type : 'error',
@@ -208,10 +185,12 @@ $('#call').on('click', function(e) {
                        operator: data.msg,
                     });  
                 }
-
-                $('#call').prop('disabled', false);
-                $('#call').html('<i class="fas fa-volume-up"></i> Panggil');
             }
         });
     }, totalWaktu)
+})
+
+$('#refresh').on('click', function(e){
+    e.preventDefault();
+    window.location.reload();
 })

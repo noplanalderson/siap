@@ -287,73 +287,15 @@ $(".show-btn-repeat").click(function() {
     }
 });
 
-$("#formGantiPwd").on('submit', function(e) {
-  
-  e.preventDefault();
-
-  var formAction = $("#formGantiPwd").attr('action');
-  var dataPassword = {
-      user_password: $("#user_password").val(),
-      repeat_password: $("#repeat_password").val(),
-      miprov_token: $('.csrf-token').val()
-  };
-
-  $.ajax({
-      type: "POST",
-      url: formAction,
-      data: dataPassword,
-      dataType: 'json',
-      error: function(xhr, status, error) {
-          var data = 'Mohon refresh kembali halaman ini. ' + '(status code: ' + xhr.status + ')';
-          Toast.fire({
-               type : 'error',
-               icon: 'error',
-               title: '',
-               text: data,
-          });
-      },
-      success: function(data) {
-        $('.csrf-token').val(data.token);
-        $('meta[name="X-CSRF-TOKEN"]').attr('content', data.token);
-
-        if (data.result == 1) {
-          Toast.fire({
-               type : 'success',
-               icon: 'success',
-               title: 'Berhasil!',
-               text: data.msg.replace( /(<([^>]+)>)/ig, ''),
-          });
-          $('#passwordModal').modal('hide');
-        } else {
-          Toast.fire({
-               type : 'error',
-               icon: 'error',
-               title: 'Gagal!',
-               text: data.msg.replace( /(<([^>]+)>)/ig, ''),
-          });
-        }
-      }
-  });
-
-  return false;
-});
-
-$(function(){
-  $('#password').on('click', function() {
-      $('.modal-title').html('Ganti Kata Sandi');
-      $('.modal-footer button[type=submit]').html('Save');
-      $('.modal-body form').attr('action', baseURI + 'change-password');
-    })
-});
 
 $(function(){
   $('#account').on('click', function() {
-        $('.modal-title').html('Account Setting');
+        $('.modal-title').html('Pengaturan Akun');
         $('.modal-footer button[type=submit]').html('Save');
-        $('.modal-body form').attr('action', baseURI + 'update-account');
+        $('.modal-body form').attr('action', baseURI + 'admin/akun');
 
         $.ajax({
-            url: baseURI + 'account',
+            url: baseURI + 'admin/akun',
             method: 'get',
             dataType: 'json',
             error: function(xhr, status, error) {
@@ -366,8 +308,9 @@ $(function(){
                 });
             },
             success: function(data){
-                $('#user_name__account').val(data.user_name);
-                $('#user_email__account').val(data.user_email);
+                $('#user_name__account').val(data.username);
+                $('#user_password').val('');
+                $('#repeat_password').val('');
             }
         });
     });

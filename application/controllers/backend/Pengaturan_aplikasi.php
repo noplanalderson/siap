@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Pengaturan_web extends APP_Backend {
+class Pengaturan_aplikasi extends SIAP_Backend {
 
 	public function __construct()
 	{
