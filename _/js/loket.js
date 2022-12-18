@@ -235,7 +235,7 @@ $('#tbl_loket').on('click', '.buka-loket', function(e) {
             $('meta[name="X-CSRF-TOKEN"]').attr('content', data.token);
             $('.csrf-token').val(data.token);
 
-            if(data.result !== 1) {
+            if(data.result == 0) {
                 
                 Toast.fire({
                    type : 'error',
@@ -246,6 +246,7 @@ $('#tbl_loket').on('click', '.buka-loket', function(e) {
             }
             else
             {
+                tblLoket.ajax.reload(null, false);
                 window.open(baseURI + "admin/masuk-loket/" + counter_id, '_blank').focus();
             }
         }

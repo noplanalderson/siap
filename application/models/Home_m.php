@@ -36,6 +36,20 @@ class Home_m extends CI_Model {
 		$this->db->where('counter_id', $counter_id);
 		return $this->db->get('tb_counter')->row();
 	}
+
+	public function stats()
+	{
+		$loket = $this->getLoket();
+
+		foreach ($loket as $l) {
+		    $stats[] = array(
+		    	'counter_id' => $l->counter_id,
+		    	'queue' => $this->nomorAntrian($l->counter_id)
+		    );
+		}
+
+		return $stats;
+	}
 }
 
 /* End of file home_m.php */

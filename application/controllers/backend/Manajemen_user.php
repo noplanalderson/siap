@@ -147,6 +147,8 @@ class Manajemen_user extends SIAP_Backend {
 			{
 				$msg[] 	= $this->upload->display_errors('<p>', '</p>');
 				$foto 	= 'user.jpg';
+
+				@copy(FCPATH . '_/img/user.jpg', $userdir.'.user.jpg');
 			}
 			else
 			{

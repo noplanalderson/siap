@@ -49,8 +49,8 @@
 
 						<div class="col-6 my-2">
 							<div class="counter">
-								<h2><?= $this->home_m->nomorAntrian($value->counter_id) ?></h2>
-								<p class="count-text "><?= $value->counter_name ?></p>
+								<h2 id="count-<?= $value->counter_id ?>"><?= $this->home_m->nomorAntrian($value->counter_id) ?></h2>
+								<p class="count-text"><?= $value->counter_name ?></p>
 							</div>
 						</div>
 

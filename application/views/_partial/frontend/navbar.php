@@ -15,7 +15,7 @@
 							</a>
 						</li>
 						<li class="nav-item">
-							<a class="nav-link text-white fw-bold" href="<?= base_url('atm') ?>">ATM
+							<a class="nav-link text-white fw-bold" href="<?= base_url('apm') ?>">APM
 								<span class="sr-only"></span>
 							</a>
 						</li>

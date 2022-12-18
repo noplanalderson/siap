@@ -10,26 +10,47 @@ if ('speechSynthesis' in window) {
   supportMsg.classList.add('not-supported');
 }
 
-// Get the voice select element.
-var voiceSelect = document.getElementById('voice');
+navigator.saysWho = (() => {
+  const { userAgent } = navigator
+  let match = userAgent.match(/(opera|chrome|safari|firefox|msie|trident(?=\/))\/?\s*(\d+)/i) || []
+  var temp
+
+  if (/trident/i.test(match[1])) {
+    temp = /\brv[ :]+(\d+)/g.exec(userAgent) || []
+
+    return `IE ${temp[1] || ''}`
+  }
+
+  if (match[1] === 'Chrome') {
+    temp = userAgent.match(/\b(OPR|Edge)\/(\d+)/)
+
+    if (temp !== null) {
+      var b = temp.slice(1).join(' ').replace('OPR', 'Opera')
+        return b.toString().split(' ')[0];
+    }
+
+    temp = userAgent.match(/\b(Edg)\/(\d+)/)
+
+    if (temp !== null) {
+      var b = temp.slice(1).join(' ').replace('Edg', 'Edge')
+        return b.toString().split(' ')[0];
+    }
+  }
+
+  match = match[2] ? [ match[1], match[2] ] : [ navigator.appName, navigator.appVersion, '-?' ]
+  temp = userAgent.match(/version\/(\d+)/i)
+
+  if (temp !== null) {
+    match.splice(1, 1, temp[1])
+  }
+
+  return match.join(' ')
+})()
 
 // Fetch the list of voices and populate the voice options.
 function loadVoices() {
   // Fetch the available voices.
   var voices = speechSynthesis.getVoices();
-  
-  // Loop through each of the voices.
-  voices.forEach(function(voice, i) {
-    // Create a new option element.
-    var option = document.createElement('option');
-    
-    // Set the options value and text.
-    option.value = voice.name;
-    option.innerHTML = voice.name;
-      
-    // Add the option to the voice selector.
-    voiceSelect.appendChild(option);
-  });
 }
 
 // Execute loadVoices.
@@ -57,9 +78,8 @@ function speak(text) {
 
   // If a voice has been selected, find the voice and set the
   // utterance instance's voice attribute.
-  if (voiceSelect.value) {
-    msg.voice = speechSynthesis.getVoices().filter(function(voice) { return voice.name == "Google Bahasa Indonesia"; })[0];
-  }
+    var v = (navigator.saysWho == 'Chrome') ? "Google Bahasa Indonesia" : "Microsoft Andika - Indonesian (Indonesia)";
+    msg.voice = speechSynthesis.getVoices().filter(function(voice) { return voice.name == v; })[0];
 
   // Queue this utterance.
   window.speechSynthesis.speak(msg);
@@ -115,15 +135,12 @@ $('#close').on('click', function(e){
 })
 
 $('#call').on('click', function(e) {
-	e.preventDefault();
+    e.preventDefault();
 
     $(this).prop('disabled', true);
-    $(this).html('<i class="fas fa-spinner fa-spin"></i> Memanggil...');
+    $(this).html('<i class="fas fa-spinner fa-spin"></i> Tunggu...');
 
-	let counter_id = $(this).data('id');
-    let transaction_id = $(this).data('queue');
-
-	document.getElementById('audiobell').pause();
+    document.getElementById('audiobell').pause();
     document.getElementById('audiobell').currentTime = 0;
     document.getElementById('audiobell').play();
 
@@ -134,8 +151,22 @@ $('#call').on('click', function(e) {
     }, totalWaktu);
 
     totalWaktu = totalWaktu+5000;
-
     setTimeout(function(){
+        $('#call').prop('disabled', false);
+        $('#call').html('<i class="fas fa-volume-up"></i> Panggil');
+    }, totalWaktu);
+})
+
+$('#next').on('click', function(e) {
+	e.preventDefault();
+
+    $(this).prop('disabled', true);
+    $(this).html('<i class="fas fa-spinner fa-spin"></i> Tunggu...');
+
+	let counter_id = $(this).data('id');
+    let transaction_id = $(this).data('queue');
+
+    // setTimeout(function(){
 
         $.ajax({
             url: baseURI + 'admin/masuk-loket/'+counter_id,
@@ -164,16 +195,19 @@ $('#call').on('click', function(e) {
                     var data = data.transaksi;
                     if(data == null)
                     {
-                        $('#queue').text('Antrian Habis');
-                        $('#call').html('<i class="fas fa-volume-up"></i> Panggil');
+                        $('#queue').text('-');
+                        $('#next').html('<i class="fas fa-forward"></i> Selanjutnya');
+                        $('#next').prop('disabled', true);
+                        $('#call').prop('disabled', true);
                     }
                     else
                     {
                         $('#queue').text(data.queue_num);
-                        $('#call').data('queue', data.transaction_id);
+                        $('#next').data('queue', data.transaction_id);
 
+                        $('#next').prop('disabled', false);
                         $('#call').prop('disabled', false);
-                        $('#call').html('<i class="fas fa-volume-up"></i> Panggil');
+                        $('#next').html('<i class="fas fa-forward"></i> Selanjutnya');
                     }
 
                 } else {
@@ -187,7 +221,7 @@ $('#call').on('click', function(e) {
                 }
             }
         });
-    }, totalWaktu)
+    // }, totalWaktu)
 })
 
 $('#refresh').on('click', function(e){

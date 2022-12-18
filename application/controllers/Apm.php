@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Atm extends SIAP_Frontend {
+class Apm extends SIAP_Frontend {
 
 	public function __construct()
 	{
@@ -46,11 +46,11 @@ class Atm extends SIAP_Frontend {
 
 				$this->js_plugin = 'sweetalert2/dist/sweetalert2.min';
 
-				$this->_module 	= 'frontend/atm';
+				$this->_module 	= 'frontend/apm';
 				
 				$this->css = 'swal';
 
-				$this->js = 'atm';
+				$this->js = 'apm';
 
 				$this->_data 	= array(
 					'title' 	=> $this->app->site_name,
@@ -72,7 +72,7 @@ class Atm extends SIAP_Frontend {
 			$counter_id = $this->input->get('id', TRUE);
 			$counter_id = ((bool)preg_match('/[a-zA-Z0-9]+$/', $counter_id) === true) ? $counter_id : '';
 
-			$this->_module 	= 'frontend/atm_print';
+			$this->_module 	= 'frontend/apm_print';
 
 			$this->js 		= 'print';
 

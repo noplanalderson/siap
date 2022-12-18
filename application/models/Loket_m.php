@@ -5,13 +5,19 @@ class Loket_m extends CI_Model {
 
 	public function loket($id)
 	{
-		$this->db->where('counter_id', $id);
-		return $this->db->get('tb_counter')->row_array();
+		$this->db->select('a.*');
+		$this->db->join('tb_operator b', 'a.counter_id = b.counter_id', 'inner');
+		$this->db->where('b.user_id', $this->session->userdata('uid'));
+		$this->db->where('a.counter_id', $id);
+		return $this->db->get('tb_counter a')->row_array();
 	}
 
 	public function daftarLoket()
 	{
-		return $this->db->get('tb_counter')->result_array();
+		$this->db->select('a.*');
+		$this->db->join('tb_operator b', 'a.counter_id = b.counter_id', 'inner');
+		$this->db->where('b.user_id', $this->session->userdata('uid'));
+		return $this->db->get('tb_counter a')->result_array();
 	}
 
 	public function cekLoket($post)
@@ -54,9 +60,9 @@ class Loket_m extends CI_Model {
 	public function status($id, $status)
 	{
 		$this->db->where('counter_id', $id);
-		$this->db->update('tb_counter', ['status' => $status]);
+		return $this->db->update('tb_counter', ['status' => $status]) ? 1 : 0;
 
-		return ($this->db->affected_rows() > 0) ? 1 : 0;
+		// return ($this->db->affected_rows() > 0) ? 1 : 0;
 	}
 }
 

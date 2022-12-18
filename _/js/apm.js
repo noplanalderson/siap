@@ -6,7 +6,7 @@ $('.btn-print').on('click', function(e) {
 	$('.btn-print').html('<div class="card-footer text-center"><strong><i class="fas fa-spinner fa-spin"></i> Mencetak nomor...</strong></div>');
 
 	$.ajax({
-        url: baseURI + 'atm',
+        url: baseURI + 'apm',
         type: 'post',
         data: {
             counter_id: counter_id,
@@ -48,6 +48,6 @@ $('.btn-print').on('click', function(e) {
     $('.btn-print').html('<div class="card-footer text-center"><strong><i class="fas fa-print"></i> Cetak Nomor</strong></div>');
 
     setTimeout(function(){
-		window.open(baseURI + "atm?id=" + counter_id, '_blank', 'toolbar=no,location=no,status=no,menubar=no,scrollbars=yes,resizable=yes,width=400,height=400').print();
+		window.open(baseURI + "apm?id=" + counter_id, '_blank', 'toolbar=no,location=no,status=no,menubar=no,scrollbars=yes,resizable=yes,width=400,height=400').print();
     }, 2000)
 })

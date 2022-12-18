@@ -30,7 +30,7 @@ class Dashboard_m extends CI_Model {
 		$jumlah = [];
 
 		$this->db->select("COUNT(transaction_id) AS total, date_format(date, '%M %Y') AS bulan");
-		$this->db->group_by('date');
+		$this->db->group_by("date_format(date, '%M %Y')");
 		$this->db->order_by('date', 'asc');
 		$visitor = $this->db->get('tb_transaction', 12)->result();
 
